@@ -1,0 +1,31 @@
+{
+  "name": "Pediator",
+  "description": "ページ内の単語のうち、Wikipedia / Uncyclopedia に項目がある単語にリンクを生成します",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "img/pediatorWoff19.png"
+  },
+  "icons": { "19": "img/pediatorWon19.png",
+             "48": "img/pediatorWon48.png",
+            "128": "img/pediatorWon128.png" },
+  "background_page": "background.html",
+  "options_page": "options.html",
+  "content_scripts": [ {
+    "js": [ "dic/BloomFilterWikipedia.js",
+            "dic/BloomFilterUncyclopedia.js",
+            "lib/tiny_segmenter_mod.js",
+            "lib/CybozuLabs.md5.js",
+            "lib/utf.js",
+            "js/pediatorSettings.js",
+            "js/pediatorMenuController.js",
+            "js/pediatorInsert.js",
+            "js/pediatorOn.js",
+            "js/pediatorStart.js" ],
+    "matches": [ "http://*/*", "https://*/*" ],
+    "css": [ "css/pediator.css" ],
+    "all_frames": true
+  } ],
+  "permissions": [
+   "tabs", "http://*/*", "https://*/*"
+  ]
+}

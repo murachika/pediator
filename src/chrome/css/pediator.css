@@ -1,0 +1,132 @@
+.jp-irts-pediator {
+/*	border: solid 1px #ff0000; */
+	border-top    : solid 1px #ff0000;
+	border-bottom : none;
+	border-left   : solid 1px #ff0000;
+	border-right  : none;
+	cursor        : pointer;
+}
+
+#jp-irts-pediator-Progress {
+	position         : fixed;
+	overflow         : hidden;
+	left             : 20px;
+	bottom           : 30px;
+	width            : 128px;
+	height           : 128px;
+	z-index          : 1000;
+	font-size        : 14px;
+	text-align       : center;
+	line-height      : 15px;
+	border-radius    : 10px;
+	opacity          : 0;
+	border           : 3px #000000 solid;
+	background-color : #EFEFEF;
+}
+
+/* for non frameset page */
+#jp-irts-pediator-menu {
+	position   : absolute;
+	overflow   : hidden;
+	visibility : hidden;
+	top        : 5px;
+	right      : 0px;
+	width      : 0px;
+	height     : 99%;
+	z-index    : 1000;
+	font-size  : 13px;
+}
+	#jp-irts-pediator-menu-navi {
+		position : relative;
+		overflow : visible;
+		top      : 0px;
+		width    : 100%;
+		height   : 99%;
+	}
+		#jp-irts-pediator-menu-img {
+			position            : absolute;
+			float               : right;
+			bottom              : 20px;
+			width               : 20px;
+			height              : 100px;
+			background-image    : url(../img/pediator_menubar_close.png);
+			background-position : bottom right;
+			background-repeat   : no-repeat;
+			cursor              : pointer;
+		}
+		#jp-irts-pediator-menu-iframe {
+			text-align       : left;
+			top              : 0px;
+			right            : 0px;
+			float            : left;
+			margin-left      : 20px;
+			padding-top      : 5px;
+			width            : 275px;
+			height           : 99%;
+			font-size        : 11px;
+			overflow         : hidden;
+			border           : 1px #000000 dashed;
+			border-radius    : 10px;
+			opacity          : 0.95;
+			background-color : #EFEFEF;
+		}
+			#jp-irts-pediator-iframe-contents {
+				margin-top    : 3px;
+				width         : 100%;
+				height        : 97%;
+				border-radius : 10px;
+			}
+
+
+/* for frameset page */
+#jp-irts-pediator-menu-frameset {
+	position   : absolute;
+	overflow   : hidden;
+	visibility : hidden;
+	top        : 5px;
+	left       : 0px;
+	width      : 20px;
+	height     : 99%;
+	z-index    : 1000;
+	font-size  : 13px;
+}
+	#jp-irts-pediator-menu-navi-frameset {
+		position : relative;
+		overflow : visible;
+		top      : 0px;
+		width    : 99%;
+		height   : 99%;
+	}
+		#jp-irts-pediator-menu-img-frameset {
+			position            : absolute;
+			float               : left;
+			bottom              : 20px;
+			width               : 20px;
+			height              : 100px;
+			background-image    : url(../img/pediator_menubar_close.png);
+			background-position : bottom right;
+			background-repeat   : no-repeat;
+			cursor              : pointer;
+		}
+		#jp-irts-pediator-menu-iframe-frameset {
+			text-align       : left;
+			top              : 0px;
+			right            : 0px;
+			float            : left;
+			margin-left      : 20px;
+			padding-top      : 5px;
+			width            : 300px;
+			height           : 99%;
+			font-size        : 11px;
+			overflow         : hidden;
+			border           : 1px #000000 dashed;
+			border-radius    : 10px;
+			opacity          : 0.95;
+			background-color : #EFEFEF;
+		}
+			#jp-irts-pediator-iframe-contents-frameset {
+				margin-top    : 3px;
+				width         : 100%;
+				height        : 97%;
+				border-radius : 10px;
+			}

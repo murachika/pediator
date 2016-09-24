@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html ; charset=UTF-8">
+<title>Pediator Options</title>
+<style TYPE="text/css">
+body {
+	background : -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(255, 255, 255)), color-stop(100%, rgb(156, 156, 156)));
+	font-size  : small;
+}
+div#pediator-option {
+	background    : #FFFFFF;
+	border-radius : 10px;
+	opacity       : 0.8;
+	padding       : 20px;
+	width         : 55%;
+	border        : solid 5px #000000;
+}
+h2 {
+	border-bottom : 1px solid #6d74af;
+	margin-top    : 0em;
+	margin-bottom : 0.5em;
+	font-size     : 130%;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="css/pediator.css">
+<script type="text/javascript" src="js/pediator_options.js"></script>
+</head>
+
+<body onload="restore_options();" onscroll="setPosition();" onresize="setPosition();">
+
+<img id="pediatorWon128" src="img/pediatorWon128.png">
+<h1>Pediator 設定</h1>
+
+<div id="pediator-option">
+	<h2>モード選択</h2>
+	<input type="radio" name="pediator-mode" value="manual" checked> <img src="img/pediatorWon24.png" id="pediatorWon24"> マニュアルモード　（右上のアイコンをクリックすると解析が始まります）<br>
+	<input type="radio" name="pediator-mode" value="auto"> <img src="img/pediatorWon24auto.png"> オートモード　（ページが表示されると自動的に解析が始まります）<br>
+	<br><br>
+
+	<h2>辞書選択</h2>
+	<input type="radio" name="pediator-dic" value="wikipedia" checked onclick="changeImage('wikipedia')"> <img src="img/pediatorWon24.png"> Wikipedia　　（総項目数 1,231,017：2011/09/11時点）<br>
+	<input type="radio" name="pediator-dic" value="uncycropedia" onclick="changeImage('uncycropedia')"> <img src="img/pediatorUon24.png"> Uncycropedia　（総項目数 21,921：2011/09/11時点）<br>
+	<br><br>
+
+	<h2>単語区切りの長さ設定</h2>
+	<input type="radio" name="pediator-segment" value="1"> 短い → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フィールズ</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フォーエバー</span><br>
+	<input type="radio" name="pediator-segment" value="4"> 普通 → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー・フィールズ</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フォーエバー</span><br>
+	<input type="radio" name="pediator-segment" value="8" checked> 長い → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー・フィールズ・フォーエバー</span><br>
+	<br>
+	　※ 実際には形態素解析の結果に左右されます<br>
+	<br><br>
+
+	<h2>表示設定</h2>
+	<input type="radio" name="pediator-show" value="iframe" onclick="ShowPediatorMenu();ScrollPediatorMenu(null,null);" checked> <img src="img/pediatorIframe24.png"> ページ内ウィンドウに表示<br>
+	<input type="radio" name="pediator-show" value="window" onclick="HidePediatorMenu();"> <img src="img/pediatorWindow24.png"> 新しいタブに表示<br>
+	<br><br>
+
+	<button onclick="save_options()">　設定を保存　</button>
+</div>
+
+<br><br>
+
+<div id="pediator-option">
+	<h2>Pediator</h2>
+	　作者：murachika<br>
+	　WEB：<a href="http://irts.jp/" target="_blank">http://irts.jp/</a><br>
+</div>
+
+<div id="jp-irts-pediator-menu">
+	<div id="jp-irts-pediator-menu-navi">
+		<div id="jp-irts-pediator-menu-img" onclick="ScrollPediatorMenu();">
+		　
+		</div>
+		<div id="jp-irts-pediator-menu-iframe">
+			　　<a href="javascript:void(0);" onclick="ScrollPediatorMenu();"><img src="img/pediatorClose24.png" title="メニューを閉じる"></a>
+			　　<a href="javascript:void(0);"><img src="img/pediatorBackOn24.png" title="戻る" onclick="history.back();"></a>
+			　　<a href="javascript:void(0);"><img src="img/pediatorForwardOn24.png" title="進む" onclick="history.forward();"></a>
+			<iframe frameborder='no' id='jp-irts-pediator-iframe-contents' onload=""></iframe>
+		</div>
+	</div>
+</div>
+<br><br>
+
+<input type="hidden" id="demotext" value="">
+
+</body>
+</html>
