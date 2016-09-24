@@ -1,7 +1,7 @@
 {
   "name": "Pediator",
   "description": "ページ内の単語のうち、Wikipedia / Uncyclopedia に項目がある単語にリンクを生成します",
-  "version": "1.1",
+  "version": "1.2",
   "manifest_version": 2,
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "web_accessible_resources": [ "img/loading.gif",

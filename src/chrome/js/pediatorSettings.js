@@ -42,12 +42,10 @@ pediatorSettings = {
 			// 設定により各種パラメータ変更
 			if ( pediatorSettings.pediator_option["pediator-dic"] == "wikipedia" ) {
 				// wikipedia項目数
-				pediatorSettings.elements            = 1336115;
+				pediatorSettings.elements            = 1642452;
 				// 用意するビット数（24の倍数）
-				pediatorSettings.bitvector           = 32066760;
+				pediatorSettings.bitvector           = 39418848;
 				pediatorSettings.bloomfilter         = wikipediaBF;
-//				pediatorSettings.pediator_menu_width = 0.45;
-//				pediatorSettings.pediator_url        = "http:\/\/ja.m.wikipedia.org\/wiki\/";
 				pediatorSettings.pediator_menu_width = 0.8;
 				pediatorSettings.pediator_url        = "http:\/\/ja.wikipedia.org\/wiki\/";
 			} else if ( pediatorSettings.pediator_option["pediator-dic"] == "uncycropedia" ) {
