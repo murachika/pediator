@@ -19,8 +19,8 @@ pediatorSettings = {
 	pediatorPercentImg  : chrome.extension.getURL("img/pediatorpercent.png"),
 	pediatorCloseImg    : chrome.extension.getURL("img/pediatorClose16.png"),
 	//PediatorMenuController.js
-	imgURLopen          : chrome.extension.getURL("../img/pediator_menubar_open.png"),
-	imgURLclose         : chrome.extension.getURL("../img/pediator_menubar_close.png"),
+	imgURLopen          : chrome.extension.getURL("img/pediator_menubar_open.png"),
+	imgURLclose         : chrome.extension.getURL("img/pediator_menubar_close.png"),
 	//PediatorInsert.js
 	BackimgURL          : chrome.extension.getURL("img/pediatorBackOn24.png"),
 	ForwardimgURL       : chrome.extension.getURL("img/pediatorForwardOn24.png"),
@@ -42,9 +42,9 @@ pediatorSettings = {
 			// 設定により各種パラメータ変更
 			if ( pediatorSettings.pediator_option["pediator-dic"] == "wikipedia" ) {
 				// wikipedia項目数
-				pediatorSettings.elements            = 1231017;
+				pediatorSettings.elements            = 1336115;
 				// 用意するビット数（24の倍数）
-				pediatorSettings.bitvector           = 29544408;
+				pediatorSettings.bitvector           = 32066760;
 				pediatorSettings.bloomfilter         = wikipediaBF;
 //				pediatorSettings.pediator_menu_width = 0.45;
 //				pediatorSettings.pediator_url        = "http:\/\/ja.m.wikipedia.org\/wiki\/";
@@ -52,8 +52,8 @@ pediatorSettings = {
 				pediatorSettings.pediator_url        = "http:\/\/ja.wikipedia.org\/wiki\/";
 			} else if ( pediatorSettings.pediator_option["pediator-dic"] == "uncycropedia" ) {
 				// uncycropedia項目数
-				pediatorSettings.elements            = 22435;
-				pediatorSettings.bitvector           = 538440;
+				pediatorSettings.elements            = 22729;
+				pediatorSettings.bitvector           = 545496;
 				pediatorSettings.bloomfilter         = uncyclopediaBF;
 				pediatorSettings.pediator_menu_width = 0.8;
 				pediatorSettings.pediator_url        = "http:\/\/ja.uncyclopedia.info\/wiki\/";

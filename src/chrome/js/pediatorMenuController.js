@@ -71,7 +71,7 @@ pediatorMenuController = {
 				from--;
 				var width = Math.floor(Math.pow(from, 2) / 2  + 20);
 				pediatormenustlye.width = width + "px";
-				pediatorMenuController.timer = setTimeout("pediatorMenuController.ScrollPediatorMenu(" + from + "," + to + ",'" + flag + "')",20);
+				pediatorMenuController.timer = setTimeout(function(){pediatorMenuController.ScrollPediatorMenu(from, to, flag)},20);
 			} else if ( (to == 20) && (from < 0) ){
 				// Close end
 				clearTimeout(pediatorMenuController.timer);
@@ -84,7 +84,7 @@ pediatorMenuController = {
 				from++;
 				var width = -( Math.floor( Math.pow(from - Math.sqrt(2 * (iframewidth - 20) ), 2) / 2 )) + iframewidth;
 				pediatormenustlye.width = width + "px";
-				pediatorMenuController.timer = setTimeout("pediatorMenuController.ScrollPediatorMenu(" + from + "," + iframewidth + ")",20);
+				pediatorMenuController.timer = setTimeout(function(){pediatorMenuController.ScrollPediatorMenu(from, iframewidth)},20);
 			} else if ( (to > 20) && (menuwidth >= to) ) {
 				// Open end
 				clearTimeout(pediatorMenuController.timer);
@@ -184,7 +184,7 @@ pediatorMenuController = {
 				var width = Math.floor(Math.pow(from, 2) / 2  + 20);
 				pediatorMenuFrame.cols = "*," + width + "px";
 				document.getElementById('jp-irts-pediator-frameset-menu').contentDocument.getElementById("jp-irts-pediator-menu-frameset").style.width = width + "px";
-				timer_frame = setTimeout("pediatorMenuController.ScrollPediatorMenuFrameset(" + from + "," + to + ",'" + flag + "')",20);
+				timer_frame = setTimeout(function(){pediatorMenuController.ScrollPediatorMenuFrameset(from, to, flag)},20);
 			} else if ( (to == 20) && (from < 0) ){
 				// Close end
 				clearTimeout(timer_frame);
@@ -199,7 +199,7 @@ pediatorMenuController = {
 				pediatorMenuFrame.cols = "*," + width + "px";
 				document.getElementById('jp-irts-pediator-frameset-menu').contentDocument.getElementById("jp-irts-pediator-menu-frameset").style.width = width + "px";
 				document.getElementById('jp-irts-pediator-frameset-menu').contentDocument.getElementById("jp-irts-pediator-menu-iframe-frameset").style.width = iframewidth - 23 + "px";
-				timer_frame = setTimeout("pediatorMenuController.ScrollPediatorMenuFrameset(" + from + "," + iframewidth + ")",20);
+				timer_frame = setTimeout(function(){pediatorMenuController.ScrollPediatorMenuFrameset(from,iframewidth)},20);
 			} else if ( (to > 20) && (menuwidth >= to) ) {
 				// Open end
 				clearTimeout(timer_frame);

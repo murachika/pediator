@@ -112,33 +112,36 @@ pediatorOn = {
 	PediatorAnalyzeFrame : function () {
 //		console.time("PediatorOn");
 		// テキストノードの走査
-		for (var i = 0; i <allTextNodeXpath.snapshotLength; i++) {
+		for (var i = 0; i <allTextNodeLength; i++) {
 			var textnode = allTextNodeXpath.snapshotItem(i).textContent;
-			if ( textnode.match(/[^\s\0　 ]/g) ) {
+			if ( textnode.match(/[^\s\0　 ]/g)) {
 				var segmentedary = segment(textnode);
 				var num1    = "";
 				var num2    = "";
 				var linestr = "";
 				// segmenterを通した単語ごとにループ
 				for (var j=0; j < segmentedary.length; j++ ){
-					
 					// 設定したgram数で単語を結合してからmd5にする
 					// 最長一致なので単語のチェックは j + ngram から開始
 					var str = "";
 					Loop1:
 					for (var k=pediatorSettings.pediator_option["pediator-segment"]; k > 0; k-- ) {
-						if ( j + k <= segmentedary.length ) {
-						// 最長が文末に満たない場合
-							str = segmentedary.slice(j,j + k);
-						} else if ( k == 1 ) {
-						// 最短まで一致しなかった場合
+						// 1gramの時はそのままループ
+						if ( pediatorSettings.pediator_option["pediator-segment"] == 1 ) {
 							str = segmentedary[j];
 						} else {
-						// ngramが文末を超える場合は文末まで
-							str = segmentedary.slice(j);
+							// gram数が1以上の場合はgram数で単語を結合
+							if ( j + k <= segmentedary.length ) {
+							// 最長が文末に満たない場合
+								str = segmentedary.slice(j,j + k).join("");
+							} else if ( k == 1 ) {
+							// 最短まで一致しなかった場合
+								str = segmentedary[j];
+							} else {
+							// ngramが文末を超える場合は文末まで
+								str = segmentedary.slice(j).join("");
+							}
 						}
-						
-						str = str.join("");
 						
 						num1 = utf16to8(str);
 						num1 = CybozuLabs.MD5.calc(num1);
@@ -176,13 +179,21 @@ pediatorOn = {
 				// Range Object を作成し、snapshotItem を置換
 				textnode = textnode.replace(/</g, "&lt;");
 				textnode = textnode.replace(/>/g, "&gt;");
-				if ( textnode != linestr ) {
-					var range = document.createRange();
-					range.selectNodeContents(document.body);
-					var cCF  = range.createContextualFragment(linestr);
-					var temp = allTextNodeXpath.snapshotItem(i);
-					temp.parentNode.replaceChild(cCF, temp);
-				}
+//				try {
+					if ( textnode != linestr ) {
+						var range = document.createRange();
+						range.selectNodeContents(document.body);
+						var cCF  = range.createContextualFragment(linestr);
+						var temp = allTextNodeXpath.snapshotItem(i);
+						var parent = allTextNodeXpath.snapshotItem(i).parentNode;
+						// parentNode が存在しない場合、replceChild メソッドがエラーになるので
+						if ( parent ) {
+							parent.replaceChild(cCF, temp);
+						}
+					}
+//				} catch ( e ) {
+//					console.log( e );
+//				}
 			} // end if
 		} // snapshotItem(i).textContent ループここまで
 
@@ -222,15 +233,14 @@ pediatorOn = {
 								// gram数が1以上の場合はgram数で単語を結合
 								if ( j + k <= segmentedary.length ) {
 								// 最長が文末に満たない場合
-									str = segmentedary.slice(j,j + k);
+									str = segmentedary.slice(j,j + k).join("");
 								} else if ( k == 1 ) {
 								// 最短まで一致しなかった場合
 									str = segmentedary[j];
 								} else {
 								// ngramが文末を超える場合は文末まで
-									str = segmentedary.slice(j);
+									str = segmentedary.slice(j).join("");
 								}
-								str = str.join("");
 							}
 							num1 = utf16to8(str);
 							num1 = CybozuLabs.MD5.calc(num1);
@@ -268,14 +278,21 @@ pediatorOn = {
 					// Range Object を作成し、snapshotItem を置換
 					textnode = textnode.replace(/</g, "&lt;");
 					textnode = textnode.replace(/>/g, "&gt;");
-					if ( textnode != linestr ) {
-						var range = document.createRange();
-						range.selectNodeContents(document.body);
-						var cCF  = range.createContextualFragment(linestr);
-						var temp = allTextNodeXpath.snapshotItem(i);
-						temp.parentNode.replaceChild(cCF, temp);
-					}
-
+//					try {
+						if ( textnode != linestr ) {
+							var range = document.createRange();
+							range.selectNodeContents(document.body);
+							var cCF  = range.createContextualFragment(linestr);
+							var temp = allTextNodeXpath.snapshotItem(i);
+							var parent = allTextNodeXpath.snapshotItem(i).parentNode;
+							// parentNode が存在しない場合、replceChild メソッドがエラーになるので
+							if ( parent ) {
+								parent.replaceChild(cCF, temp);
+							}
+						}
+//					} catch ( e ) {
+//						console.log( e );
+//					}
 				} // end if
 				
 				pediatorOn.pcount++;

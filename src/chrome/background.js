@@ -1,8 +1,3 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script>
-
 // デフォルト設定
 if ( !localStorage["pediator-mode"] || !localStorage["pediator-dic"] || !localStorage["pediator-segment"] || !localStorage["pediator-show"] ){
 	localStorage["pediator-mode"]    = "manual";
@@ -43,25 +38,26 @@ if (localStorage["pediator-mode"] == "auto") {
 	};
 }
 
+var currentTab;
 // アイコンボタンをクリックした時
 chrome.browserAction.onClicked.addListener(function(tab) {
 
 	if ( pediator_status.pediator_page_status == "off" ) {
 		// 拡張機能ページ、オプションページ以外（URLがchromeから始まるページは除外）
-		chrome.tabs.getSelected(null,
-			function(currentTab) {
-				if ( currentTab.url.search(/^chrome/) ) {
-
+		chrome.tabs.query({active: true},
+			function(current) {
+				// search は文頭からマッチすると 0（偽）を返す。無かったら -1（真）
+				if ( !current[0].url.search(/^chrome/) ) {
+					alert("特殊ページでは動作しません");
+				} else if ( !current[0].url.search(/^https\:\/\/chrome\.google\.com/) ) {
+					alert("Chromeウェブストアでは動作しません");
+				} else {
 					chrome.browserAction.setIcon({path:pediator_icon_on});
 					chrome.browserAction.setBadgeBackgroundColor({color:[255, 0, 0, 200]});
 					pediator_status.pediator_page_status     = "on";
 					pediator_status.pediator_automode_status = "on";
-
 					chrome.tabs.executeScript(null, {code: "pediatorInsert.insertMenu()",allFrames: false});
 					chrome.tabs.executeScript(null, {file: "js/pediatorStart.js",allFrames: true});
-
-				} else {
-					alert("特殊ページでは動作しません");
 				}
 			}
 		);
@@ -74,7 +70,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 	}
 });
 
-var currentTab;
 // コンテントスクリプトからメッセージを受け取った時
 chrome.extension.onRequest.addListener(
 	function(request, sender, sendResponse) {
@@ -112,9 +107,9 @@ chrome.extension.onRequest.addListener(
 chrome.tabs.onSelectionChanged.addListener(
 	function() {
 
-		chrome.tabs.getSelected(null,
+		chrome.tabs.query({active: true},
 			function(current) {
-				currentTab = current;
+				currentTab = current[0];
 			}
 		);
 
@@ -129,10 +124,11 @@ chrome.tabs.onSelectionChanged.addListener(
 			pediator_icon_off = "img/pediatorUoff19.png";
 		}
 		
-		// 拡張機能ページ、オプションページ以外（URLがchromeから始まるページは除外）
-		chrome.tabs.getSelected(null,
-			function(currentTab) {
-				if ( currentTab.url.search(/^chrome/) ) {
+		// 拡張機能ページ、オプションページ以外（URLがchromeから始まるページは除外）、Chromeウェブストア以外
+		chrome.tabs.query({active: true},
+			function(current) {
+				// search は文頭からマッチすると 0（偽）を返す。無かったら -1（真）
+				if ( current[0].url.search(/^chrome/) && current[0].url.search(/^https\:\/\/chrome\.google\.com/) ) {
 					chrome.tabs.executeScript(null, {file: "js/pediatorCheckState.js",allFrames: false});
 					if (localStorage["pediator-mode"] == "auto") {
 						pediatorAutoMode("onSelectionChanged");
@@ -162,10 +158,10 @@ chrome.tabs.onUpdated.addListener(
 			pediator_icon_off = "img/pediatorUoff19.png";
 		}
 		
-		// 拡張機能ページ、オプションページ以外（URLがchromeから始まるページは除外）
-		chrome.tabs.getSelected(null,
-			function(currentTab) {
-				if ( currentTab.url.search(/^chrome/) ) {
+		// 拡張機能ページ、オプションページ以外（URLがchromeから始まるページは除外）、Chromeウェブストア以外
+		chrome.tabs.query({active: true},
+			function(current) {
+				if ( current[0].url.search(/^chrome/) && current[0].url.search(/^https\:\/\/chrome\.google\.com/) ) {
 					chrome.tabs.executeScript(null, {file: "js/pediatorCheckState.js",allFrames: false});
 					if ( changeInfo.status == "complete" ) {
 						if (localStorage["pediator-mode"] == "auto") {
@@ -193,8 +189,5 @@ function pediatorAutoMode(callfrom){
 			chrome.tabs.executeScript(null, {file: "js/pediatorStart.js",allFrames: true});
 		}
 	});
-}
+};
 
-</script>
-</head>
-</html>

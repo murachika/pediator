@@ -23,10 +23,9 @@ h2 {
 }
 </style>
 <link rel="stylesheet" type="text/css" href="css/pediator.css">
-<script type="text/javascript" src="js/pediator_options.js"></script>
 </head>
 
-<body onload="restore_options();" onscroll="setPosition();" onresize="setPosition();">
+<body>
 
 <img id="pediatorWon128" src="img/pediatorWon128.png">
 <h1>Pediator 設定</h1>
@@ -38,24 +37,24 @@ h2 {
 	<br><br>
 
 	<h2>辞書選択</h2>
-	<input type="radio" name="pediator-dic" value="wikipedia" checked onclick="changeImage('wikipedia')"> <img src="img/pediatorWon24.png"> Wikipedia　　（総項目数 1,231,017：2011/09/11時点）<br>
-	<input type="radio" name="pediator-dic" value="uncycropedia" onclick="changeImage('uncycropedia')"> <img src="img/pediatorUon24.png"> Uncycropedia　（総項目数 21,921：2011/09/11時点）<br>
+	<input type="radio" name="pediator-dic" value="wikipedia" checked id="changeImage-wiki"> <img src="img/pediatorWon24.png"> Wikipedia　　（総項目数 1,336,115：2012/11/18時点）<br>
+	<input type="radio" name="pediator-dic" value="uncycropedia" id="changeImage-uncycro"> <img src="img/pediatorUon24.png"> Uncycropedia　（総項目数 22,729：2012/11/18時点）<br>
 	<br><br>
 
 	<h2>単語区切りの長さ設定</h2>
-	<input type="radio" name="pediator-segment" value="1"> 短い → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フィールズ</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フォーエバー</span><br>
-	<input type="radio" name="pediator-segment" value="4"> 普通 → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー・フィールズ</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">・</span> <span class="jp-irts-pediator" onclick="pediator_demo(this);">フォーエバー</span><br>
-	<input type="radio" name="pediator-segment" value="8" checked> 長い → <span class="jp-irts-pediator" onclick="pediator_demo(this);">ストロベリー・フィールズ・フォーエバー</span><br>
+	<input type="radio" name="pediator-segment" value="1"> 短い → <span class="jp-irts-pediator" id="pediator_demo-short">ストロベリー</span> <span class="jp-irts-pediator" id="pediator_demo-short-dot">・</span> <span class="jp-irts-pediator" id="pediator_demo-short-fields">フィールズ</span> <span class="jp-irts-pediator" id="pediator_demo-short-dot2">・</span> <span class="jp-irts-pediator" id="pediator_demo-short-forever">フォーエバー</span><br>
+	<input type="radio" name="pediator-segment" value="4"> 普通 → <span class="jp-irts-pediator" id="pediator_demo-std">ストロベリー・フィールズ</span> <span class="jp-irts-pediator"  id="pediator_demo-std-dot">・</span> <span class="jp-irts-pediator" id="pediator_demo-std-forever">フォーエバー</span><br>
+	<input type="radio" name="pediator-segment" value="8" checked> 長い → <span class="jp-irts-pediator" id="pediator_demo-long">ストロベリー・フィールズ・フォーエバー</span><br>
 	<br>
 	　※ 実際には形態素解析の結果に左右されます<br>
 	<br><br>
 
 	<h2>表示設定</h2>
-	<input type="radio" name="pediator-show" value="iframe" onclick="ShowPediatorMenu();ScrollPediatorMenu(null,null);" checked> <img src="img/pediatorIframe24.png"> ページ内ウィンドウに表示<br>
-	<input type="radio" name="pediator-show" value="window" onclick="HidePediatorMenu();"> <img src="img/pediatorWindow24.png"> 新しいタブに表示<br>
+	<input type="radio" name="pediator-show" value="iframe" id="pediator-show-iframe" checked> <img src="img/pediatorIframe24.png"> ページ内ウィンドウに表示<br>
+	<input type="radio" name="pediator-show" value="window" id="pediator-show-window"> <img src="img/pediatorWindow24.png"> 新しいタブに表示<br>
 	<br><br>
 
-	<button onclick="save_options()">　設定を保存　</button>
+	<button id="savebutton">　設定を保存　</button>
 </div>
 
 <br><br>
@@ -68,14 +67,14 @@ h2 {
 
 <div id="jp-irts-pediator-menu">
 	<div id="jp-irts-pediator-menu-navi">
-		<div id="jp-irts-pediator-menu-img" onclick="ScrollPediatorMenu();">
+		<div id="jp-irts-pediator-menu-img">
 		　
 		</div>
 		<div id="jp-irts-pediator-menu-iframe">
-			　　<a href="javascript:void(0);" onclick="ScrollPediatorMenu();"><img src="img/pediatorClose24.png" title="メニューを閉じる"></a>
-			　　<a href="javascript:void(0);"><img src="img/pediatorBackOn24.png" title="戻る" onclick="history.back();"></a>
-			　　<a href="javascript:void(0);"><img src="img/pediatorForwardOn24.png" title="進む" onclick="history.forward();"></a>
-			<iframe frameborder='no' id='jp-irts-pediator-iframe-contents' onload=""></iframe>
+			　　<a href="javascript:void(0);" id="jp-irts-pediator-menu-iframe-img"><img src="img/pediatorClose24.png" title="メニューを閉じる"></a>
+			　　<a href="javascript:void(0);"><img src="img/pediatorBackOn24.png" id="jp-irts-pediator-menu-iframe-img-back" title="戻る"></a>
+			　　<a href="javascript:void(0);"><img src="img/pediatorForwardOn24.png" id="jp-irts-pediator-menu-iframe-img-forward" title="進む"></a>
+			<iframe frameborder='no' id='jp-irts-pediator-iframe-contents'></iframe>
 		</div>
 	</div>
 </div>
@@ -83,5 +82,6 @@ h2 {
 
 <input type="hidden" id="demotext" value="">
 
+<script type="text/javascript" src="js/pediator_options.js"></script>
 </body>
 </html>

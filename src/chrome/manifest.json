@@ -1,14 +1,28 @@
 {
   "name": "Pediator",
   "description": "ページ内の単語のうち、Wikipedia / Uncyclopedia に項目がある単語にリンクを生成します",
-  "version": "1.0",
+  "version": "1.1",
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "web_accessible_resources": [ "img/loading.gif",
+                                "img/pediatorworking.png",
+                                "img/pediatorpercent.png",
+                                "img/pediatorClose16.png",
+                                "img/pediator_menubar_close.png",
+                                "img/pediator_menubar_open.png",
+                                "img/pediatorBackOn24.png",
+                                "img/pediatorForwardOn24.png",
+                                "img/pediatorClose24.png",
+                                "css/pediator.css" ],
   "browser_action": {
     "default_icon": "img/pediatorWoff19.png"
   },
   "icons": { "19": "img/pediatorWon19.png",
              "48": "img/pediatorWon48.png",
             "128": "img/pediatorWon128.png" },
-  "background_page": "background.html",
+  "background": {
+    "scripts":["background.js"]
+  },
   "options_page": "options.html",
   "content_scripts": [ {
     "js": [ "dic/BloomFilterWikipedia.js",
@@ -21,11 +35,11 @@
             "js/pediatorInsert.js",
             "js/pediatorOn.js",
             "js/pediatorStart.js" ],
-    "matches": [ "http://*/*", "https://*/*" ],
+    "matches": [ "http://*/*", "https://*/*", "*://*/*" ],
     "css": [ "css/pediator.css" ],
     "all_frames": true
   } ],
   "permissions": [
-   "tabs", "http://*/*", "https://*/*"
+    "tabs", "http://*/*", "https://*/*", "*://*/*"
   ]
 }

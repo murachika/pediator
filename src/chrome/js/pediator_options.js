@@ -1,3 +1,33 @@
+// EventListener
+window.addEventListener("load", restore_options);
+window.addEventListener("resize", setPosition);
+window.addEventListener("scroll", setPosition);
+
+document.getElementById("savebutton").addEventListener("click", save_options);
+
+document.getElementById("changeImage-wiki").addEventListener("click", function(){changeImage('wikipedia')});
+document.getElementById("changeImage-uncycro").addEventListener("click", function(){changeImage('uncycropedia')});
+
+document.getElementById("pediator_demo-short").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-short"))});
+document.getElementById("pediator_demo-short-dot").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-short-dot"))});
+document.getElementById("pediator_demo-short-fields").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-short-fields"))});
+document.getElementById("pediator_demo-short-dot2").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-short-dot2"))});
+document.getElementById("pediator_demo-short-forever").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-short-forever"))});
+document.getElementById("pediator_demo-std").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-std"))});
+document.getElementById("pediator_demo-std-dot").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-std-dot"))});
+document.getElementById("pediator_demo-std-forever").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-std-forever"))});
+document.getElementById("pediator_demo-long").addEventListener("click", function(){pediator_demo(document.getElementById("pediator_demo-long"))});
+
+document.getElementById("pediator-show-iframe").addEventListener("click", function(){ShowPediatorMenu();ScrollPediatorMenu(null,null)});
+document.getElementById("pediator-show-window").addEventListener("click", HidePediatorMenu);
+
+document.getElementById("jp-irts-pediator-menu-img").addEventListener("click", function(){ScrollPediatorMenu(null,null)});
+
+document.getElementById("jp-irts-pediator-menu-iframe-img").addEventListener("click", function(){ScrollPediatorMenu(null,null)});
+
+document.getElementById("jp-irts-pediator-menu-iframe-img-back").addEventListener("click", function(){history.back()});
+document.getElementById("jp-irts-pediator-menu-iframe-img-forward").addEventListener("click", function(){history.forward()});
+
 // Saves options to localStorage.
 function save_options() {
 	var mode = document.getElementsByName("pediator-mode");
@@ -103,7 +133,7 @@ function ScrollPediatorMenu(from,to,flag){
 			from--;
 			var width = Math.floor(Math.pow(from, 2) / 2  + 20);
 			pediatormenustlye.width = width + "px";
-			var timer = setTimeout("ScrollPediatorMenu(" + from + "," + to + ",'" + flag + "')",20);
+			var timer = setTimeout(function(){ScrollPediatorMenu(from, to, flag)},20);
 		} else if ( (to == 20) && (from < 0) ){
 			clearTimeout(timer);
 			document.getElementById("jp-irts-pediator-menu-img").style.backgroundImage="url(img/pediator_menubar_open.png)";
@@ -114,7 +144,7 @@ function ScrollPediatorMenu(from,to,flag){
 			from++;
 			var width = -( Math.floor( Math.pow(from - Math.sqrt(2 * (iframewidth - 20) ), 2) / 2 )) + iframewidth;
 			pediatormenustlye.width = width + "px";
-			var timer = setTimeout("ScrollPediatorMenu(" + from + "," + iframewidth + ")",20);
+			var timer = setTimeout(function(){ScrollPediatorMenu(from, iframewidth)},20);
 		} else if ( (to > 20) && (menuwidth >= to) ) {
 			clearTimeout(timer);
 			pediatorMenuState = "opened";
@@ -156,6 +186,7 @@ function ShowPediatorMenu(open) {
 		clearTimeout(timerId);
 	}
 }
+
 function HidePediatorMenu() {
 	var pediatorMenu = document.getElementById("jp-irts-pediator-menu");
 	var currentStyle = getComputedStyle(pediatorMenu, '');
